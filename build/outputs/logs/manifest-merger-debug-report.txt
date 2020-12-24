@@ -1,0 +1,41 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+	package
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:70-96
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:1-4:12
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:3:5-78
+	android:name
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml:3:22-76
+uses-sdk
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		ADDED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml
+		INJECTED from /Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/AndroidManifest.xml

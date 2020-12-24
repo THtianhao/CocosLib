@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="5" by="lint 4.1.1">
+
+    <issue
+        id="MissingPermission"
+        severity="Error"
+        message="Missing permissions required by Vibrator.vibrate: android.permission.VIBRATE"
+        category="Correctness"
+        priority="9"
+        summary="Missing Permissions"
+        explanation="This check scans through your code and libraries and looks at the APIs being used, and checks this against the set of permissions required to access those APIs. If the code using those APIs is called at runtime, then the program will crash.&#xA;&#xA;Furthermore, for permissions that are revocable (with `targetSdkVersion` 23), client code must also be prepared to handle the calls throwing an exception if the user rejects the request for permission at runtime."
+        errorLine1="                    sVibrateService.vibrate((long) (duration * 1000));"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java"
+            line="359"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        severity="Warning"
+        message="The resource string &quot;done&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        category="Correctness:Messages"
+        priority="6"
+        summary="Translated Untranslatable"
+        explanation="Strings can be marked with `translatable=false` to indicate that they are not intended to be translated, but are present in the resource file for other purposes (for example for non-display strings that should vary by some other configuration qualifier such as screen size or API level).&#xA;&#xA;There are cases where translators accidentally translate these strings anyway, and lint will flag these occurrences with this lint check."
+        errorLine1="    &lt;string name=&quot;done&quot; translatable=&quot;false&quot;>完成&lt;/string>"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml"
+            line="4"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        severity="Warning"
+        message="The resource string &quot;next&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        category="Correctness:Messages"
+        priority="6"
+        summary="Translated Untranslatable"
+        explanation="Strings can be marked with `translatable=false` to indicate that they are not intended to be translated, but are present in the resource file for other purposes (for example for non-display strings that should vary by some other configuration qualifier such as screen size or API level).&#xA;&#xA;There are cases where translators accidentally translate these strings anyway, and lint will flag these occurrences with this lint check."
+        errorLine1="    &lt;string name=&quot;next&quot; translatable=&quot;false&quot;>下一个&lt;/string>"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml"
+            line="5"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        severity="Warning"
+        message="The resource string &quot;search&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        category="Correctness:Messages"
+        priority="6"
+        summary="Translated Untranslatable"
+        explanation="Strings can be marked with `translatable=false` to indicate that they are not intended to be translated, but are present in the resource file for other purposes (for example for non-display strings that should vary by some other configuration qualifier such as screen size or API level).&#xA;&#xA;There are cases where translators accidentally translate these strings anyway, and lint will flag these occurrences with this lint check."
+        errorLine1="    &lt;string name=&quot;search&quot; translatable=&quot;false&quot;>搜索&lt;/string>"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml"
+            line="6"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        severity="Warning"
+        message="The resource string &quot;go&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        category="Correctness:Messages"
+        priority="6"
+        summary="Translated Untranslatable"
+        explanation="Strings can be marked with `translatable=false` to indicate that they are not intended to be translated, but are present in the resource file for other purposes (for example for non-display strings that should vary by some other configuration qualifier such as screen size or API level).&#xA;&#xA;There are cases where translators accidentally translate these strings anyway, and lint will flag these occurrences with this lint check."
+        errorLine1="    &lt;string name=&quot;go&quot; translatable=&quot;false&quot;>前往&lt;/string>"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml"
+            line="7"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="Untranslatable"
+        severity="Warning"
+        message="The resource string &quot;send&quot; is marked as translatable=&quot;false&quot;, but is translated to &quot;zh&quot; (Chinese) here"
+        category="Correctness:Messages"
+        priority="6"
+        summary="Translated Untranslatable"
+        explanation="Strings can be marked with `translatable=false` to indicate that they are not intended to be translated, but are present in the resource file for other purposes (for example for non-display strings that should vary by some other configuration qualifier such as screen size or API level).&#xA;&#xA;There are cases where translators accidentally translate these strings anyway, and lint will flag these occurrences with this lint check."
+        errorLine1="    &lt;string name=&quot;send&quot; translatable=&quot;false&quot;>发送&lt;/string>"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/libcocos2dx/src/main/res/values-zh-rCN/strings.xml"
+            line="8"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="Unnecessary; SDK_INT is always >= 16"
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
+        errorLine1="        if (android.os.Build.VERSION.SDK_INT >= 11) {"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxAccelerometer.java"
+            line="98"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields (static reference to `Cocos2dxActivity` which has field `mFrameLayout` pointing to `FrameLayout`); this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static Cocos2dxActivity sContext = null;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="65"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields (static reference to `Cocos2dxEditBox` which has field `mButton` pointing to `Button`); this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static Cocos2dxEditBox sThis = null;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxEditBox.java"
+            line="63"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields (static reference to `Cocos2dxAccelerometer` which has field `mContext` pointing to `Context`); this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static Cocos2dxAccelerometer sCocos2dxAccelerometer;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java"
+            line="82"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static Activity sActivity = null;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxHelper.java"
+            line="88"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields (static reference to `Cocos2dxActivity` which has field `mFrameLayout` pointing to `FrameLayout`); this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static Cocos2dxActivity sCocos2dxActivity;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxWebViewHelper.java"
+            line="44"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static FrameLayout sLayout;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxWebViewHelper.java"
+            line="45"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="StaticFieldLeak"
+        severity="Warning"
+        message="Do not place Android context classes in static fields; this is a memory leak"
+        category="Performance"
+        priority="6"
+        summary="Static Field Leaks"
+        explanation="A static field will leak contexts.&#xA;&#xA;Non-static inner classes have an implicit reference to their outer class. If that outer class is for example a `Fragment` or `Activity`, then this reference means that the long-running handler/loader/task will hold a reference to the activity which prevents it from getting garbage collected.&#xA;&#xA;Similarly, direct field references to activities and fragments from these longer running instances can cause leaks.&#xA;&#xA;ViewModel classes should never point to Views or non-application Contexts."
+        errorLine1="    private static Activity sActivity = null;"
+        errorLine2="            ~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Utils.java"
+            line="31"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UseValueOf"
+        severity="Warning"
+        message="Use `Float.valueOf(currentPosition)` instead"
+        category="Performance"
+        priority="4"
+        summary="Should use `valueOf` instead of `new`"
+        explanation="You should not call the constructor for wrapper classes directly, such as`new Integer(42)`. Instead, call the `valueOf` factory method, such as `Integer.valueOf(42)`. This will typically use less memory because common integers such as 0 and 1 will share a single instance."
+        errorLine1="                return new Float(currentPosition);"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxVideoHelper.java"
+            line="373"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="UseValueOf"
+        severity="Warning"
+        message="Use `Float.valueOf(duration)` instead"
+        category="Performance"
+        priority="4"
+        summary="Should use `valueOf` instead of `new`"
+        explanation="You should not call the constructor for wrapper classes directly, such as`new Integer(42)`. Instead, call the `valueOf` factory method, such as `Integer.valueOf(42)`. This will typically use less memory because common integers such as 0 and 1 will share a single instance."
+        errorLine1="                return new Float(duration);"
+        errorLine2="                       ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxVideoHelper.java"
+            line="398"
+            column="24"/>
+    </issue>
+
+    <issue
+        id="ViewConstructor"
+        severity="Warning"
+        message="Custom view `Cocos2dxVideoView` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        category="Usability"
+        priority="3"
+        summary="Missing View constructors for XML inflation"
+        explanation="Some layout tools (such as the Android layout editor) need to find a constructor with one of the following signatures:&#xA;* `View(Context context)`&#xA;* `View(Context context, AttributeSet attrs)`&#xA;* `View(Context context, AttributeSet attrs, int defStyle)`&#xA;&#xA;If your custom view needs to perform initialization which does not apply when used in a layout editor, you can surround the given code with a check to see if `View#isInEditMode()` is false, since that method will return `false` at runtime but true within a user interface editor."
+        errorLine1="public class Cocos2dxVideoView extends SurfaceView {"
+        errorLine2="             ~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxVideoView.java"
+            line="37"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        severity="Warning"
+        message="Custom view `Cocos2dxGLSurfaceView` overrides `onTouchEvent` but not `performClick`"
+        category="Accessibility"
+        priority="6"
+        summary="Accessibility in Custom Views"
+        explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
+        errorLine1="    public boolean onTouchEvent(final MotionEvent pMotionEvent) {"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxGLSurfaceView.java"
+            line="138"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ClickableViewAccessibility"
+        severity="Warning"
+        message="Custom view `Cocos2dxVideoView` overrides `onTouchEvent` but not `performClick`"
+        category="Accessibility"
+        priority="6"
+        summary="Accessibility in Custom Views"
+        explanation="If a `View` that overrides `onTouchEvent` or uses an `OnTouchListener` does not also implement `performClick` and call it when clicks are detected, the `View` may not handle accessibility actions properly. Logic handling the click actions should ideally be placed in `View#performClick` as some accessibility services invoke `performClick` when a click action should occur."
+        errorLine1="    public boolean onTouchEvent(MotionEvent event) {"
+        errorLine2="                   ~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxVideoView.java"
+            line="228"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                            mFPSTextView.setText(&quot;FPS: &quot; + (int)Math.ceil(fps));"
+        errorLine2="                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="475"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                            mFPSTextView.setText(&quot;FPS: &quot; + (int)Math.ceil(fps));"
+        errorLine2="                                                 ~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="475"
+            column="50"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="Do not concatenate text displayed with `setText`. Use resource string with placeholders."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                            mJSBInvocationTextView.setText(&quot;JSB: &quot; + count);"
+        errorLine2="                                                           ~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="487"
+            column="60"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                            mJSBInvocationTextView.setText(&quot;JSB: &quot; + count);"
+        errorLine2="                                                           ~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="487"
+            column="60"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                        mGLOptModeTextView.setText(&quot;GL Opt: Enabled&quot;);"
+        errorLine2="                                                   ~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="520"
+            column="52"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="                            mGLOptModeTextView.setText(&quot;GL Opt: Disabled&quot;);"
+        errorLine2="                                                       ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="/Applications/CocosCreator/Creator3D/1.2.0/CocosCreator3D.app/Contents/Resources/resources/3d/cocos2d-x-lite/cocos/platform/android/java/src/org/cocos2dx/lib/Cocos2dxActivity.java"
+            line="549"
+            column="56"/>
+    </issue>
+
+</issues>
