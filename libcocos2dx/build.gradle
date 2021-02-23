@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
-    buildToolsVersion PROP_BUILD_TOOLS_VERSION
+    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
+    buildToolsVersion BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion PROP_MIN_SDK_VERSION
-        targetSdkVersion PROP_TARGET_SDK_VERSION
+        minSdkVersion MIN_SDK_VERSION.toInteger();
+        targetSdkVersion TARGET_SDK_VERSION.toInteger();
         versionCode 1
         versionName "1.0"
     }
