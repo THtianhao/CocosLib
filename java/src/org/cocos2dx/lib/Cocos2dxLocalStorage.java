@@ -24,6 +24,7 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.lib;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,11 +46,16 @@ public class Cocos2dxLocalStorage {
      * @param context The Context within which to work, used to create the DB
      * @return 
      */
+    private static Activity sAct = null;
+    public static void setAct(Activity act){
+        sAct = act;
+    }
+
     public static boolean init(String dbName, String tableName) {
-        if (Cocos2dxActivity.getContext() != null) {
+        if (sAct != null) {
             DATABASE_NAME = dbName;
             TABLE_NAME = tableName;
-            mDatabaseOpenHelper = new DBOpenHelper(Cocos2dxActivity.getContext());
+            mDatabaseOpenHelper = new DBOpenHelper(sAct);
             mDatabase = mDatabaseOpenHelper.getWritableDatabase();
             return true;
         }

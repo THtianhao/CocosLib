@@ -18,6 +18,7 @@
 
 package org.cocos2dx.lib;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.FrameLayout;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -40,12 +42,11 @@ public class Cocos2dxVideoView extends SurfaceView {
     // Internal classes and interfaces.
     // ===========================================================
 
-    public interface OnVideoEventListener
-    {
-        void onVideoEvent(int tag,int event);
+    public interface OnVideoEventListener {
+        void onVideoEvent(int tag, int event);
     }
 
-    private enum State{
+    private enum State {
         IDLE,
         ERROR,
         INITIALIZED,
@@ -68,23 +69,24 @@ public class Cocos2dxVideoView extends SurfaceView {
 
     private String TAG = "Cocos2dxVideoView";
 
-    private Uri         mVideoUri;
-    private int         mDuration;
+    private Uri mVideoUri;
+    private int mDuration;
 
     private State mCurrentState = State.IDLE;
 
     // All the stuff we need for playing and showing a video
     private SurfaceHolder mSurfaceHolder = null;
     private MediaPlayer mMediaPlayer = null;
-    private int         mVideoWidth = 0;
-    private int         mVideoHeight = 0;
+    private int mVideoWidth = 0;
+    private int mVideoHeight = 0;
 
     private OnVideoEventListener mOnVideoEventListener;
 
     // recording the seek position while preparing
-    private int         mSeekWhenPrepared = 0;
+    private int mSeekWhenPrepared = 0;
 
-    protected Cocos2dxActivity mCocos2dxActivity = null;
+    protected Activity mCocos2dxActivity = null;
+    protected Cocos2dxGLSurfaceView mGLSurfaceView = null;
 
     protected int mViewLeft = 0;
     protected int mViewTop = 0;
@@ -115,11 +117,12 @@ public class Cocos2dxVideoView extends SurfaceView {
     // Constructors
     // ===========================================================
 
-    public Cocos2dxVideoView(Cocos2dxActivity activity,int tag) {
+    public Cocos2dxVideoView(Activity activity, int tag, Cocos2dxGLSurfaceView glSurfaceView) {
         super(activity);
 
         mViewTag = tag;
         mCocos2dxActivity = activity;
+        mGLSurfaceView = glSurfaceView;
         initVideoView();
     }
 
@@ -146,7 +149,7 @@ public class Cocos2dxVideoView extends SurfaceView {
         }
     }
 
-    public void setVolume (float volume) {
+    public void setVolume(float volume) {
         if (mMediaPlayer != null) {
             mMediaPlayer.setVolume(volume, volume);
         }
@@ -169,9 +172,8 @@ public class Cocos2dxVideoView extends SurfaceView {
 
         if (path.startsWith("/")) {
             mIsAssetRouse = false;
-            setVideoURI(Uri.parse(path),null);
-        }
-        else {
+            setVideoURI(Uri.parse(path), null);
+        } else {
 
             mVideoFilePath = path;
             mIsAssetRouse = true;
@@ -180,8 +182,8 @@ public class Cocos2dxVideoView extends SurfaceView {
     }
 
     public int getCurrentPosition() {
-        if (! (mCurrentState == State.ERROR |
-                mMediaPlayer == null) ) {
+        if (!(mCurrentState == State.ERROR |
+                mMediaPlayer == null)) {
             return mMediaPlayer.getCurrentPosition();
         }
 
@@ -189,10 +191,10 @@ public class Cocos2dxVideoView extends SurfaceView {
     }
 
     public int getDuration() {
-        if (! (mCurrentState == State.IDLE ||
+        if (!(mCurrentState == State.IDLE ||
                 mCurrentState == State.ERROR ||
                 mCurrentState == State.INITIALIZED ||
-                mMediaPlayer == null) ) {
+                mMediaPlayer == null)) {
             mDuration = mMediaPlayer.getDuration();
         }
 
@@ -204,8 +206,7 @@ public class Cocos2dxVideoView extends SurfaceView {
      *
      * @param l The callback that will be run
      */
-    public void setVideoViewEventListener(OnVideoEventListener l)
-    {
+    public void setVideoViewEventListener(OnVideoEventListener l) {
         mOnVideoEventListener = l;
     }
 
@@ -247,7 +248,8 @@ public class Cocos2dxVideoView extends SurfaceView {
             try {
                 mMediaPlayer.prepare();
                 this.showFirstFrame();
-            } catch (Exception ex) {}
+            } catch (Exception ex) {
+            }
         }
     }
 
@@ -288,8 +290,8 @@ public class Cocos2dxVideoView extends SurfaceView {
 
     public void fixSize() {
         if (mFullScreenEnabled) {
-            mFullScreenWidth = mCocos2dxActivity.getGLSurfaceView().getWidth();
-            mFullScreenHeight = mCocos2dxActivity.getGLSurfaceView().getHeight();
+            mFullScreenWidth = mGLSurfaceView.getWidth();
+            mFullScreenHeight = mGLSurfaceView.getHeight();
 
             fixSize(0, 0, mFullScreenWidth, mFullScreenHeight);
         } else {
@@ -303,13 +305,12 @@ public class Cocos2dxVideoView extends SurfaceView {
             mVisibleTop = top;
             mVisibleWidth = width;
             mVisibleHeight = height;
-        }
-        else if (width != 0 && height != 0) {
+        } else if (width != 0 && height != 0) {
             if (mKeepRatio && !mFullScreenEnabled) {
-                if ( mVideoWidth * height  > width * mVideoHeight ) {
+                if (mVideoWidth * height > width * mVideoHeight) {
                     mVisibleWidth = width;
                     mVisibleHeight = width * mVideoHeight / mVideoWidth;
-                } else if ( mVideoWidth * height  < width * mVideoHeight ) {
+                } else if (mVideoWidth * height < width * mVideoHeight) {
                     mVisibleWidth = height * mVideoWidth / mVideoHeight;
                     mVisibleHeight = height;
                 }
@@ -321,8 +322,7 @@ public class Cocos2dxVideoView extends SurfaceView {
                 mVisibleWidth = width;
                 mVisibleHeight = height;
             }
-        }
-        else {
+        } else {
             mVisibleLeft = left;
             mVisibleTop = top;
             mVisibleWidth = mVideoWidth;
@@ -341,7 +341,7 @@ public class Cocos2dxVideoView extends SurfaceView {
     public int resolveAdjustedSize(int desiredSize, int measureSpec) {
         int result = desiredSize;
         int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize =  MeasureSpec.getSize(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
 
         switch (specMode) {
             case MeasureSpec.UNSPECIFIED:
@@ -398,9 +398,9 @@ public class Cocos2dxVideoView extends SurfaceView {
             return;
         }
         if (mIsAssetRouse) {
-            if(mVideoFilePath == null)
+            if (mVideoFilePath == null)
                 return;
-        } else if(mVideoUri == null) {
+        } else if (mVideoUri == null) {
             return;
         }
 
@@ -417,7 +417,7 @@ public class Cocos2dxVideoView extends SurfaceView {
 
             if (mIsAssetRouse) {
                 AssetFileDescriptor afd = mCocos2dxActivity.getAssets().openFd(mVideoFilePath);
-                mMediaPlayer.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
+                mMediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             } else {
                 mMediaPlayer.setDataSource(mVideoUri.toString());
             }
@@ -451,7 +451,7 @@ public class Cocos2dxVideoView extends SurfaceView {
                 fixSize();
             }
 
-            if(!mMetaUpdated) {
+            if (!mMetaUpdated) {
                 Cocos2dxVideoView.this.sendEvent(EVENT_META_LOADED);
                 Cocos2dxVideoView.this.sendEvent(EVENT_READY_TO_PLAY);
                 mMetaUpdated = true;
@@ -462,12 +462,12 @@ public class Cocos2dxVideoView extends SurfaceView {
     };
 
     private MediaPlayer.OnCompletionListener mCompletionListener =
-        new MediaPlayer.OnCompletionListener() {
-        public void onCompletion(MediaPlayer mp) {
-            mCurrentState = State.PLAYBACK_COMPLETED;
-            Cocos2dxVideoView.this.sendEvent(EVENT_COMPLETED);
-        }
-    };
+            new MediaPlayer.OnCompletionListener() {
+                public void onCompletion(MediaPlayer mp) {
+                    mCurrentState = State.PLAYBACK_COMPLETED;
+                    Cocos2dxVideoView.this.sendEvent(EVENT_COMPLETED);
+                }
+            };
 
 
     private static final int EVENT_PLAYING = 0;
@@ -479,52 +479,51 @@ public class Cocos2dxVideoView extends SurfaceView {
     private static final int EVENT_READY_TO_PLAY = 6;
 
     private MediaPlayer.OnErrorListener mErrorListener =
-        new MediaPlayer.OnErrorListener() {
-        public boolean onError(MediaPlayer mp, int framework_err, int impl_err) {
-            Log.d(TAG, "Error: " + framework_err + "," + impl_err);
-            mCurrentState = State.ERROR;
+            new MediaPlayer.OnErrorListener() {
+                public boolean onError(MediaPlayer mp, int framework_err, int impl_err) {
+                    Log.d(TAG, "Error: " + framework_err + "," + impl_err);
+                    mCurrentState = State.ERROR;
 
-            /* Otherwise, pop up an error dialog so the user knows that
-             * something bad has happened. Only try and pop up the dialog
-             * if we're attached to a window. When we're going away and no
-             * longer have a window, don't bother showing the user an error.
-             */
-            if (getWindowToken() != null) {
-                Resources r = mCocos2dxActivity.getResources();
-                int messageId;
+                    /* Otherwise, pop up an error dialog so the user knows that
+                     * something bad has happened. Only try and pop up the dialog
+                     * if we're attached to a window. When we're going away and no
+                     * longer have a window, don't bother showing the user an error.
+                     */
+                    if (getWindowToken() != null) {
+                        Resources r = mCocos2dxActivity.getResources();
+                        int messageId;
 
-                if (framework_err == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
-                    // messageId = com.android.internal.R.string.VideoView_error_text_invalid_progressive_playback;
-                    messageId = r.getIdentifier("VideoView_error_text_invalid_progressive_playback", "string", "android");
-                } else {
-                    // messageId = com.android.internal.R.string.VideoView_error_text_unknown;
-                    messageId = r.getIdentifier("VideoView_error_text_unknown", "string", "android");
+                        if (framework_err == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
+                            // messageId = com.android.internal.R.string.VideoView_error_text_invalid_progressive_playback;
+                            messageId = r.getIdentifier("VideoView_error_text_invalid_progressive_playback", "string", "android");
+                        } else {
+                            // messageId = com.android.internal.R.string.VideoView_error_text_unknown;
+                            messageId = r.getIdentifier("VideoView_error_text_unknown", "string", "android");
+                        }
+
+                        int titleId = r.getIdentifier("VideoView_error_title", "string", "android");
+                        int buttonStringId = r.getIdentifier("VideoView_error_button", "string", "android");
+
+                        new AlertDialog.Builder(mCocos2dxActivity)
+                                .setTitle(r.getString(titleId))
+                                .setMessage(messageId)
+                                .setPositiveButton(r.getString(buttonStringId),
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                /* If we get here, there is no onError listener, so
+                                                 * at least inform them that the video is over.
+                                                 */
+                                                Cocos2dxVideoView.this.sendEvent(EVENT_COMPLETED);
+                                            }
+                                        })
+                                .setCancelable(false)
+                                .show();
+                    }
+                    return true;
                 }
+            };
 
-                int titleId = r.getIdentifier("VideoView_error_title", "string", "android");
-                int buttonStringId = r.getIdentifier("VideoView_error_button", "string", "android");
-
-                new AlertDialog.Builder(mCocos2dxActivity)
-                        .setTitle(r.getString(titleId))
-                        .setMessage(messageId)
-                        .setPositiveButton(r.getString(buttonStringId),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        /* If we get here, there is no onError listener, so
-                                         * at least inform them that the video is over.
-                                         */
-                                        Cocos2dxVideoView.this.sendEvent(EVENT_COMPLETED);
-                                    }
-                                })
-                        .setCancelable(false)
-                        .show();
-            }
-            return true;
-        }
-    };
-
-    SurfaceHolder.Callback mSHCallback = new SurfaceHolder.Callback()
-    {
+    SurfaceHolder.Callback mSHCallback = new SurfaceHolder.Callback() {
         public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         }
 
