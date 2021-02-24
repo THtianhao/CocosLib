@@ -1,27 +1,27 @@
 /****************************************************************************
-Copyright (c) 2010-2012 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2010-2012 cocos2d-x.org
+ Copyright (c) 2013-2016 Chukong Technologies Inc.
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
@@ -41,6 +41,7 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.opengl.GLSurfaceView;
 import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Environment;
@@ -92,7 +93,7 @@ public class Cocos2dxHelper {
 
     // The absolute path to the OBB if it exists, else the absolute path to the APK.
     private static String sAssetsPath = "";
-    
+
     // The OBB file
     private static ZipResourceFile sOBBFile = null;
 
@@ -120,12 +121,12 @@ public class Cocos2dxHelper {
 
     private static BatteryReceiver sBatteryReceiver = new BatteryReceiver();
 
-    static void registerBatteryLevelReceiver(Context context) {
+    public static void registerBatteryLevelReceiver(Context context) {
         Intent intent = context.registerReceiver(sBatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         sBatteryReceiver.setBatteryLevelByIntent(intent);
     }
 
-    static void unregisterBatteryLevelReceiver(Context context) {
+    public static void unregisterBatteryLevelReceiver(Context context) {
         context.unregisterReceiver(sBatteryReceiver);
     }
 
@@ -134,7 +135,7 @@ public class Cocos2dxHelper {
     }
 
     public static final int NETWORK_TYPE_NONE = 0;
-    public static final int NETWORK_TYPE_LAN  = 1;
+    public static final int NETWORK_TYPE_LAN = 1;
     public static final int NETWORK_TYPE_WWAN = 2;
 
     public static int getNetworkType() {
@@ -164,13 +165,14 @@ public class Cocos2dxHelper {
     // ===========================================================
 
     public static void runOnGLThread(final Runnable r) {
-        ((Cocos2dxActivity)sActivity).runOnGLThread(r);
+        sCocos2dxHelperListener.runOnGLThread(r);
     }
 
     private static boolean sInited = false;
-    public static void init(final Activity activity) {
+
+    public static void init(final Activity activity,Cocos2dxHelperListener listener) {
         sActivity = activity;
-        Cocos2dxHelper.sCocos2dxHelperListener = (Cocos2dxHelperListener)activity;
+        Cocos2dxHelper.sCocos2dxHelperListener = listener;
         if (!sInited) {
 
             PackageManager pm = activity.getPackageManager();
@@ -205,37 +207,37 @@ public class Cocos2dxHelper {
             nativeSetAudioDeviceInfo(isSupportLowLatency, sampleRate, bufferSizeInFrames);
 
             final ApplicationInfo applicationInfo = activity.getApplicationInfo();
-            
+
             Cocos2dxHelper.sPackageName = applicationInfo.packageName;
             Cocos2dxHelper.sFileDirectory = activity.getFilesDir().getAbsolutePath();
-            
+
             Cocos2dxHelper.nativeSetApkPath(Cocos2dxHelper.getAssetsPath());
-    
+
             Cocos2dxHelper.sCocos2dxAccelerometer = new Cocos2dxAccelerometer(activity);
             Cocos2dxHelper.sAssetManager = activity.getAssets();
-            Cocos2dxHelper.nativeSetContext((Context)activity, Cocos2dxHelper.sAssetManager);
-            Cocos2dxHelper.sVibrateService = (Vibrator)activity.getSystemService(Context.VIBRATOR_SERVICE);
+            Cocos2dxHelper.nativeSetContext((Context) activity, Cocos2dxHelper.sAssetManager);
+            Cocos2dxHelper.sVibrateService = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
 
             sInited = true;
-            
+
             int versionCode = 1;
             try {
-                versionCode = Cocos2dxActivity.getContext().getPackageManager().getPackageInfo(Cocos2dxHelper.getPackageName(), 0).versionCode;
+
+                versionCode = sActivity.getPackageManager().getPackageInfo(Cocos2dxHelper.getPackageName(), 0).versionCode;
             } catch (NameNotFoundException e) {
                 e.printStackTrace();
             }
             try {
-                Cocos2dxHelper.sOBBFile = APKExpansionSupport.getAPKExpansionZipFile(Cocos2dxActivity.getContext(), versionCode, 0);
+                Cocos2dxHelper.sOBBFile = APKExpansionSupport.getAPKExpansionZipFile(sActivity, versionCode, 0);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-    
+
     // This function returns the absolute path to the OBB if it exists,
     // else it returns the absolute path to the APK.
-    public static String getAssetsPath()
-    {
+    public static String getAssetsPath() {
         if (Cocos2dxHelper.sAssetsPath == "") {
             int versionCode = 1;
             try {
@@ -250,28 +252,27 @@ public class Cocos2dxHelper {
             else
                 Cocos2dxHelper.sAssetsPath = Cocos2dxHelper.sActivity.getApplicationInfo().sourceDir;
         }
-        
+
         return Cocos2dxHelper.sAssetsPath;
     }
-    
-    public static ZipResourceFile getObbFile()
-    {
+
+    public static ZipResourceFile getObbFile() {
         return Cocos2dxHelper.sOBBFile;
     }
-    
+
     public static Activity getActivity() {
         return sActivity;
     }
-    
+
     public static void addOnActivityResultListener(OnActivityResultListener listener) {
         onActivityResultListeners.add(listener);
     }
-    
+
     public static Set<OnActivityResultListener> getOnActivityResultListeners() {
         return onActivityResultListeners;
     }
-    
-    public static boolean isActivityVisible(){
+
+    public static boolean isActivityVisible() {
         return sActivityVisible;
     }
 
@@ -298,6 +299,7 @@ public class Cocos2dxHelper {
     public static String getPackageName() {
         return Cocos2dxHelper.sPackageName;
     }
+
     public static String getWritablePath() {
         return Cocos2dxHelper.sFileDirectory;
     }
@@ -310,7 +312,7 @@ public class Cocos2dxHelper {
         return Locale.getDefault().toString();
     }
 
-    public static String getDeviceModel(){
+    public static String getDeviceModel() {
         return Build.MODEL;
     }
 
@@ -333,7 +335,7 @@ public class Cocos2dxHelper {
     }
 
     public static void setKeepScreenOn(boolean value) {
-        ((Cocos2dxActivity)sActivity).setKeepScreenOn(value);
+        sCocos2dxHelperListener.setKeepScreenOn(value);
     }
 
     public static void vibrate(float duration) {
@@ -341,7 +343,7 @@ public class Cocos2dxHelper {
             if (sVibrateService != null && sVibrateService.hasVibrator()) {
                 if (android.os.Build.VERSION.SDK_INT >= 26) {
                     Class<?> vibrationEffectClass = Class.forName("android.os.VibrationEffect");
-                    if(vibrationEffectClass != null) {
+                    if (vibrationEffectClass != null) {
                         final int DEFAULT_AMPLITUDE = Cocos2dxReflectionHelper.<Integer>getConstantValue(vibrationEffectClass,
                                 "DEFAULT_AMPLITUDE");
                         //VibrationEffect.createOneShot(long milliseconds, int amplitude)
@@ -349,10 +351,10 @@ public class Cocos2dxHelper {
                                 new Class[]{Long.TYPE, Integer.TYPE});
                         Class<?> type = method.getReturnType();
 
-                        Object effect =  method.invoke(vibrationEffectClass,
+                        Object effect = method.invoke(vibrationEffectClass,
                                 new Object[]{(long) (duration * 1000), DEFAULT_AMPLITUDE});
                         //sVibrateService.vibrate(VibrationEffect effect);
-                        Cocos2dxReflectionHelper.invokeInstanceMethod(sVibrateService,"vibrate",
+                        Cocos2dxReflectionHelper.invokeInstanceMethod(sVibrateService, "vibrate",
                                 new Class[]{type}, new Object[]{(effect)});
                     }
                 } else {
@@ -364,16 +366,16 @@ public class Cocos2dxHelper {
         }
     }
 
- 	public static String getVersion() {
- 		try {
- 			String version = Cocos2dxActivity.getContext().getPackageManager().getPackageInfo(Cocos2dxActivity.getContext().getPackageName(), 0).versionName;
- 			return version;
- 		} catch(Exception e) {
- 			return "";
- 		}
- 	}
+    public static String getVersion() {
+        try {
+            String version = sActivity.getPackageManager().getPackageInfo(sActivity.getPackageName(), 0).versionName;
+            return version;
+        } catch (Exception e) {
+            return "";
+        }
+    }
 
-    public static boolean openURL(String url) { 
+    public static boolean openURL(String url) {
         boolean ret = false;
         try {
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -386,17 +388,17 @@ public class Cocos2dxHelper {
     }
 
     // 复制文本到剪切板
-    public static void copyTextToClipboard(final String text){
+    public static void copyTextToClipboard(final String text) {
         sActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ClipboardManager myClipboard = (ClipboardManager)sActivity.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager myClipboard = (ClipboardManager) sActivity.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData myClip = ClipData.newPlainText("text", text);
                 myClipboard.setPrimaryClip(myClip);
             }
         });
     }
-    
+
     public static long[] getObbAssetFileDescriptor(final String path) {
         long[] array = new long[3];
         if (Cocos2dxHelper.sOBBFile != null) {
@@ -404,8 +406,8 @@ public class Cocos2dxHelper {
             if (descriptor != null) {
                 try {
                     ParcelFileDescriptor parcel = descriptor.getParcelFileDescriptor();
-                    Method method = parcel.getClass().getMethod("getFd", new Class[] {});
-                    array[0] = (Integer)method.invoke(parcel);
+                    Method method = parcel.getClass().getMethod("getFd", new Class[]{});
+                    array[0] = (Integer) method.invoke(parcel);
                     array[1] = descriptor.getStartOffset();
                     array[2] = descriptor.getLength();
                 } catch (NoSuchMethodException e) {
@@ -442,11 +444,11 @@ public class Cocos2dxHelper {
     public static void onEnterBackground() {
 
     }
-    
+
     public static void onEnterForeground() {
 
     }
-    
+
     public static void terminateProcess() {
         android.os.Process.killProcess(android.os.Process.myPid());
     }
@@ -470,27 +472,22 @@ public class Cocos2dxHelper {
         }
     }
 
-    private static int displayMetricsToDPI(DisplayMetrics metrics)
-    {
-        if(metrics.xdpi != metrics.ydpi) {
+    private static int displayMetricsToDPI(DisplayMetrics metrics) {
+        if (metrics.xdpi != metrics.ydpi) {
             Log.w(Cocos2dxHelper.TAG, "xdpi != ydpi, use (xdpi + ydpi)/2 instead.");
             return (int) ((metrics.xdpi + metrics.ydpi) / 2.0);
         } else {
-            return (int)metrics.xdpi;
+            return (int) metrics.xdpi;
         }
     }
 
-    public static int getDPI()
-    {
-        if (sActivity != null)
-        {
+    public static int getDPI() {
+        if (sActivity != null) {
             DisplayMetrics metrics = new DisplayMetrics();
             WindowManager wm = sActivity.getWindowManager();
-            if (wm != null)
-            {
+            if (wm != null) {
                 Display d = wm.getDefaultDisplay();
-                if (d != null)
-                {
+                if (d != null) {
                     try {
                         Method getRealMetrics = d.getClass().getMethod("getRealMetrics", metrics.getClass());
                         getRealMetrics.invoke(d, metrics);
@@ -506,10 +503,9 @@ public class Cocos2dxHelper {
         return -1;
     }
 
-    public static byte[] conversionEncoding(byte[] text, String fromCharset,String newCharset)
-    {
+    public static byte[] conversionEncoding(byte[] text, String fromCharset, String newCharset) {
         try {
-            String str = new String(text,fromCharset);
+            String str = new String(text, fromCharset);
             return str.getBytes(newCharset);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -522,11 +518,9 @@ public class Cocos2dxHelper {
         if (sOnGameInfoUpdatedListener != null) {
             if (index == 0) {
                 sOnGameInfoUpdatedListener.onGameInfoUpdated_0(text);
-            }
-            else if (index == 1) {
+            } else if (index == 1) {
                 sOnGameInfoUpdatedListener.onGameInfoUpdated_1(text);
-            }
-            else if (index == 2) {
+            } else if (index == 2) {
                 sOnGameInfoUpdatedListener.onGameInfoUpdated_2(text);
             }
         }
@@ -552,11 +546,17 @@ public class Cocos2dxHelper {
 
     public interface OnGameInfoUpdatedListener {
         void onFPSUpdated(float fps);
+
         void onJSBInvocationCountUpdated(int count);
+
         void onOpenDebugView();
+
         void onDisableBatchGLCommandsToNative();
+
         void onGameInfoUpdated_0(String text);
+
         void onGameInfoUpdated_1(String text);
+
         void onGameInfoUpdated_2(String text);
     }
 
@@ -578,6 +578,8 @@ public class Cocos2dxHelper {
         public void showDialog(final String pTitle, final String pMessage);
 
         public void runOnGLThread(final Runnable pRunnable);
+
+        public void setKeepScreenOn(boolean value);
     }
 
     private static float[] sDeviceMotionValues = new float[9];

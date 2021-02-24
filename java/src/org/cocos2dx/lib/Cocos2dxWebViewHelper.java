@@ -1,30 +1,31 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
-Copyright (c) 2013-2016 Chukong Technologies Inc.
-Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
+ Copyright (c) 2010-2011 cocos2d-x.org
+ Copyright (c) 2013-2016 Chukong Technologies Inc.
+ Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
 
-http://www.cocos2d-x.org
+ http://www.cocos2d-x.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,17 +42,18 @@ import java.util.concurrent.FutureTask;
 public class Cocos2dxWebViewHelper {
     private static final String TAG = Cocos2dxWebViewHelper.class.getSimpleName();
     private static Handler sHandler;
-    private static Cocos2dxActivity sCocos2dxActivity;
     private static FrameLayout sLayout;
-
+    private static Activity mActivity;
     private static SparseArray<Cocos2dxWebView> webViews;
+    private static Cocos2dxHelper.Cocos2dxHelperListener sListener;
     private static int viewTag = 0;
 
-    public Cocos2dxWebViewHelper(FrameLayout layout) {
+    public Cocos2dxWebViewHelper(Activity activity, FrameLayout layout, Cocos2dxHelper.Cocos2dxHelperListener listener) {
         Cocos2dxWebViewHelper.sLayout = layout;
         Cocos2dxWebViewHelper.sHandler = new Handler(Looper.myLooper());
-
-        Cocos2dxWebViewHelper.sCocos2dxActivity = (Cocos2dxActivity) Cocos2dxActivity.getContext();
+        sListener = listener;
+        mActivity = activity;
+        Cocos2dxWebViewHelper.mActivity = activity;
         Cocos2dxWebViewHelper.webViews = new SparseArray<Cocos2dxWebView>();
     }
 
@@ -81,10 +83,10 @@ public class Cocos2dxWebViewHelper {
 
     public static int createWebView() {
         final int index = viewTag;
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Cocos2dxWebView webView = new Cocos2dxWebView(sCocos2dxActivity, index);
+                Cocos2dxWebView webView = new Cocos2dxWebView(mActivity, index, sListener);
                 FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.WRAP_CONTENT,
                         FrameLayout.LayoutParams.WRAP_CONTENT);
@@ -97,7 +99,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void removeWebView(final int index) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -112,7 +114,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void setVisible(final int index, final boolean visible) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -124,7 +126,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void setWebViewRect(final int index, final int left, final int top, final int maxWidth, final int maxHeight) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -136,7 +138,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void setBackgroundTransparent(final int index, final boolean isTransparent) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -149,7 +151,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void setJavascriptInterfaceScheme(final int index, final String scheme) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -161,7 +163,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void loadData(final int index, final String data, final String mimeType, final String encoding, final String baseURL) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -173,7 +175,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void loadHTMLString(final int index, final String data, final String baseUrl) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -185,7 +187,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void loadUrl(final int index, final String url) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -197,7 +199,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void loadFile(final int index, final String filePath) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -209,7 +211,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void stopLoading(final int index) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -222,7 +224,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void reload(final int index) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -274,7 +276,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void goBack(final int index) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -286,7 +288,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void goForward(final int index) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -298,7 +300,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void evaluateJS(final int index, final String js) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
@@ -310,7 +312,7 @@ public class Cocos2dxWebViewHelper {
     }
 
     public static void setScalesPageToFit(final int index, final boolean scalesPageToFit) {
-        sCocos2dxActivity.runOnUiThread(new Runnable() {
+        mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Cocos2dxWebView webView = webViews.get(index);
