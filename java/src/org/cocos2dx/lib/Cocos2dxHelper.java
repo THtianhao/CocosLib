@@ -574,12 +574,12 @@ public class Cocos2dxHelper {
     // Inner and Anonymous Classes
     // ===========================================================
 
-    public static interface Cocos2dxHelperListener {
-        public void showDialog(final String pTitle, final String pMessage);
+    public interface Cocos2dxHelperListener {
+         void showDialog(final String pTitle, final String pMessage);
 
-        public void runOnGLThread(final Runnable pRunnable);
+         void runOnGLThread(final Runnable pRunnable);
 
-        public void setKeepScreenOn(boolean value);
+         void setKeepScreenOn(boolean value);
     }
 
     private static float[] sDeviceMotionValues = new float[9];
